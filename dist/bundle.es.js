@@ -46,4 +46,43 @@ var List = function (props) {
   )
 };
 
-export { Button, ImageListItem, List };
+var Card = function (props) {
+  return (
+    React.createElement( 'article', { className: 'mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10' },
+      React.createElement( 'div', { className: 'tc' },
+        React.createElement( 'img', {
+          src: 'http://tachyons.io/img/avatar_1.jpg', className: 'br-100 h4 w4 dib ba b--black-05 pa2', title: 'Photo of a kitty staring at you' }),
+        React.createElement( 'h1', { className: 'f3 mb2' }, props.title),
+        React.createElement( 'h2', { className: 'f5 fw4 gray mt0' }, props.description)
+      ),
+      props.children
+    )
+  )
+};
+
+var TextField = function (props) {
+  var width = props.width ? ("w-" + (props.width)) : 'w-100';
+  return (
+    React.createElement( 'div', { className: 'measure' },
+      React.createElement( 'label', { htmlFor: props.label, className: 'f6 b db mb2' },
+        props.label,
+        ' ',
+        props.optional && React.createElement( 'span', { className: 'normal black-60' }, "(optional)")
+      ),
+      React.createElement( 'input', {
+        id: props.label, className: ("input-reset ba b--black-20 pa2 mb2 db " + width), type: 'text', 'aria-describedby': 'name-desc', value: props.value, onChange: props.onChange }),
+      React.createElement( 'small', { className: 'f6 black-60 db mb2' }, props.help)
+    )
+  )
+};
+
+TextField.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  help: React.PropTypes.string,
+  optional: React.PropTypes.bool,
+  width: React.PropTypes.string
+};
+
+export { Button, ImageListItem, List, Card, TextField };
