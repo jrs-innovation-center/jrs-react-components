@@ -85,4 +85,41 @@ TextField.propTypes = {
   width: React.PropTypes.string
 };
 
-export { Button, ImageListItem, List, Card, TextField };
+var Panel = function (props) {
+  var bgColor = 'bg-' + props.bgColor || 'bg-purple';
+  return (
+    React.createElement( 'article', { className: 'ba' },
+      React.createElement( 'header', { className: ("pa4 " + bgColor + " white-60") },
+        React.createElement( 'h2', null, props.title )
+      ),
+      React.createElement( 'section', { className: 'pa2' },
+        props.children
+      ),
+      React.createElement( 'footer', { className: ("pa4 " + bgColor + " white-80") },
+        React.createElement( 'div', { className: 'cf' },
+          React.createElement( 'div', { className: 'fr dark-purple' },
+            props.onPrevious && (
+            React.createElement( 'button', {
+              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onPrevious }, "Previous")
+                ), "| ", props.onNext && (
+            React.createElement( 'button', {
+              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onNext }, "Next")
+                ), "| ", props.onFinish && (
+            React.createElement( 'button', {
+              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onFinish }, "Finish")
+                )
+          )
+        )
+      )
+    )
+  )
+};
+
+Panel.propTypes = {
+  onPrevious: React.PropTypes.func.isRequired,
+  onNext: React.PropTypes.func.isRequired,
+  onFinish: React.PropTypes.func,
+  title: React.PropTypes.string
+};
+
+export { Button, ImageListItem, List, Card, TextField, Panel };
