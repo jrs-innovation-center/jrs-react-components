@@ -6,6 +6,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
+var ramda = require('ramda');
 
 var Button = function (props) {
   var defaultClass = 'f6 link dim ph3 pv2 mb2 dib white bg-black';
@@ -92,28 +93,36 @@ TextField.propTypes = {
   width: React__default.PropTypes.string
 };
 
+//import Themes from '../Themes/index'
+
+//const theme = Themes.getDefaultTheme()
+
+
 var Panel = function (props) {
-  var bgColor = 'bg-' + props.bgColor || 'bg-purple';
+  var panelBorder = ramda.propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles);
+  var bgColor = ramda.propOr('bg-near-white','panelBackgroundColor', props.themeStyles);
+  var textColor = ramda.propOr('dark-gray', 'panelTextColor',  props.themeStyles);
+
   return (
-    React__default.createElement( 'article', { className: 'ba' },
-      React__default.createElement( 'header', { className: ("pa4 " + bgColor + " white-60") },
-        React__default.createElement( 'h2', null, props.title )
+    React__default.createElement( 'article', { className: ("" + panelBorder) },
+      React__default.createElement( 'header', { className: ("pa2 " + bgColor + " " + textColor) },
+        React__default.createElement( 'h2', { className: 'fw1 f3 mt1 mb0' }, props.title)
       ),
-      React__default.createElement( 'section', { className: 'pa2' },
+      React__default.createElement( 'section', { className: ("pa2 " + bgColor) },
         props.children
       ),
-      React__default.createElement( 'footer', { className: ("pa4 " + bgColor + " white-80") },
+      React__default.createElement( 'footer', { className: ("pa2 " + bgColor + " gray") },
         React__default.createElement( 'div', { className: 'cf' },
-          React__default.createElement( 'div', { className: 'fr dark-purple' },
+          React__default.createElement( 'div', { className: ("fr " + textColor) },
             props.onPrevious && (
             React__default.createElement( 'button', {
-              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onPrevious }, "Previous")
+              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onPrevious }, "Previous")
                 ), "| ", props.onNext && (
             React__default.createElement( 'button', {
-              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onNext }, "Next")
+              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onNext }, "Next")
                 ), "| ", props.onFinish && (
             React__default.createElement( 'button', {
-              className: ("ba grow bg-white " + bgColor + " b--green pa2"), onClick: props.onFinish }, "Finish")
+              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onFinish }, "Finish")
                 )
           )
         )
@@ -123,11 +132,115 @@ var Panel = function (props) {
 };
 
 Panel.propTypes = {
-  onPrevious: React__default.PropTypes.func.isRequired,
+  onPrevious: React__default.PropTypes.func,
   onNext: React__default.PropTypes.func.isRequired,
   onFinish: React__default.PropTypes.func,
   title: React__default.PropTypes.string
 };
+
+var defaultTheme$1 = {
+  themeName: 'default-red-theme',
+  themeStyles: {
+    panelBorder: 'ba bg-black-20',
+    panelBackgroundColor: 'bg-dark-red',
+    panelTextColor: 'light-gray'
+  }
+};
+
+var defaultTheme = 'default-red-theme';
+var themes = [defaultTheme$1];
+
+function setDefaultTheme(themeName) {
+  defaultTheme = themeName;
+}
+
+function addTheme(theme) {
+  themes = ramda.append(theme, themes);
+}
+
+function updateTheme(themeName, theme) {
+  return ramda.compose(
+    ramda.append(theme),
+    ramda.reject(function (theme) { return theme.themeName === themeName; })
+   )(themes)
+}
+
+function replaceThemeStyles(themeName, themeStyles) {
+ var foundTheme =  ramda.find(function (theme) { return theme.themeName === themeName; })(themes);
+ foundTheme.themeStyles = ramda.merge(foundTheme.themeStyles, themeStyles);
+
+  return updateTheme(themeName, foundTheme)
+ // return compose(
+ //   append(foundTheme),
+ //   reject(theme => theme.name === themeName)
+ //  )(themes)
+
+}
+
+
+function appendThemeStyles(themeName, themeStyles) {
+ var foundTheme = ramda.find(function (theme) { return theme.themeName === themeName; })(themes);
+
+ // 1) map through the keys in the incoming themeStyles object and
+ //     prepend a space to the key value
+ // 2) zip the keys in the object with the new values
+ // 3) merge the new values with a concatenation of the
+ //     original values
+
+ if (foundTheme) {
+    foundTheme =  ramda.compose(
+      ramda.mergeWith(ramda.concat, foundTheme.themeStyles),
+      ramda.zipObj(ramda.keys(themeStyles)),
+      ramda.map(function (key) { return ' z ' + themeStyles[key]; }))
+      (ramda.keys(themeStyles));
+
+    // 4) update the entire theme
+    return replaceThemeStyles(themeName, foundTheme)
+  } else {
+    return null
+  }
+
+}
+
+function getDefaultTheme () {
+  return ramda.find (function (theme) { return theme.themeName === defaultTheme; }, themes)
+}
+
+var Themes = {
+  addTheme: addTheme,
+  setDefaultTheme: setDefaultTheme,
+  replaceThemeStyles: replaceThemeStyles,
+  appendThemeStyles: appendThemeStyles,
+  getDefaultTheme: getDefaultTheme
+};
+
+
+
+
+// Examples
+
+// addTheme({
+//   name: 'near-white',
+//   styles: {
+//     panelBorder: 'ba b--dark-gray',
+//     backgroundColor: 'bg-white',
+//     textColor: 'black-90'
+//   }
+// })
+//
+// setDefaultTheme('near-white')
+//
+// updateThemeStyles('near-white', {
+//       textColor: 'black-60'
+// })
+
+// appendThemeStyles('near-white', {
+//       textColor: 'black-90',
+//       backgroundColor: 'bg-light-green',
+// })
+
+
+// getDefaultTheme()  // retrieve the default theme
 
 exports.Button = Button;
 exports.ImageListItem = ImageListItem;
@@ -135,3 +248,4 @@ exports.List = List;
 exports.Card = Card;
 exports.TextField = TextField;
 exports.Panel = Panel;
+exports.Themes = Themes;

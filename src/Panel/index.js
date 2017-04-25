@@ -1,21 +1,29 @@
 import React from 'react'
+import {propOr} from 'ramda'
+//import Themes from '../Themes/index'
+
+//const theme = Themes.getDefaultTheme()
+
 
 const Panel = props => {
-  const bgColor = 'bg-' + props.bgColor || 'bg-purple'
+  const panelBorder = propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles)
+  const bgColor = propOr('bg-near-white','panelBackgroundColor', props.themeStyles)
+  const textColor = propOr('dark-gray', 'panelTextColor',  props.themeStyles)
+
   return (
-    <article className='ba'>
-      <header className={`pa4 ${bgColor} white-60`}>
-        <h2>{props.title}</h2>
+    <article className={`${panelBorder}`}>
+      <header className={`pa2 ${bgColor} ${textColor}`}>
+        <h2 className='fw1 f3 mt1 mb0'>{props.title}</h2>
       </header>
-      <section className='pa2'>
+      <section className={`pa2 ${bgColor}`}>
         {props.children}
       </section>
-      <footer className={`pa4 ${bgColor} white-80`}>
+      <footer className={`pa2 ${bgColor} gray`}>
         <div className='cf'>
-          <div className='fr dark-purple'>
+          <div className={`fr ${textColor}`}>
             {props.onPrevious && (
             <button
-              className={`ba grow bg-white ${bgColor} b--green pa2`}
+              className={`ba grow ${bgColor} ${textColor} pa2`}
               onClick={props.onPrevious}
                   >
                     Previous
@@ -24,7 +32,7 @@ const Panel = props => {
             |
             {props.onNext && (
             <button
-              className={`ba grow bg-white ${bgColor} b--green pa2`}
+              className={`ba grow ${bgColor} ${textColor} pa2`}
               onClick={props.onNext}
                   >
                     Next
@@ -33,7 +41,7 @@ const Panel = props => {
             |
             {props.onFinish && (
             <button
-              className={`ba grow bg-white ${bgColor} b--green pa2`}
+              className={`ba grow ${bgColor} ${textColor} pa2`}
               onClick={props.onFinish}
                   >
                     Finish
@@ -47,7 +55,7 @@ const Panel = props => {
 }
 
 Panel.propTypes = {
-  onPrevious: React.PropTypes.func.isRequired,
+  onPrevious: React.PropTypes.func,
   onNext: React.PropTypes.func.isRequired,
   onFinish: React.PropTypes.func,
   title: React.PropTypes.string
