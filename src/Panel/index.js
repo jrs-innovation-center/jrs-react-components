@@ -8,7 +8,7 @@ const Panel = props => {
   const panelChildrenSection = propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles)
   const panelFooter = propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles)
   const panelButtonDiv = propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles)
-  const panelButton = propOr('ba grow pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles)
+  const panelButton = propOr('ba dim pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles)
   return (
     <article className={`${panelBorder}`}>
       <header className={`${panelHeader}`}>

@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { append, compose, concat, find, keys, map, merge, mergeWith, propOr as propOr$1, reject, zipObj } from 'ramda';
+import { append, compose, concat, find, keys, map, merge, mergeWith, propOr, reject, zipObj } from 'ramda';
 
 var Button = function (props) {
 
-  var button = propOr('f6 link dim ph3 pv2 mb2 dib white bg-black', 'button', props.themeStyles);
+  var button = propOr('ba dim pa1 bg-near-white dark-gray', 'button', props.themeStyles);
 
   return (
     React.createElement( 'button', { onClick: props.onClick, className: ("" + button) },
@@ -21,7 +21,7 @@ var ImageListItem = function (ref) {
   var link = ref.link;
   var themeStyles = ref.themeStyles;
 
-  var imageListItemLi = propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
+  var imageListItemLi = propOr('flex items-center lh-copy pa2 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
   var imageListItemImg = propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles);
   var imageListItemDiv = propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles);
   var imageListItemSpanTitle = propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles);
@@ -48,6 +48,31 @@ ImageListItem.propTypes = {
   link: React.PropTypes.element
 };
 
+var SimpleListItem = function (props) {
+  var simpleListItemLi = propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'simpleListItemLi', props.themeStyles);
+  var simpleListItemDiv = propOr('pl3 flex-auto', 'simpleListItemDiv', props.themeStyles);
+  var simpleListItemSpanTitle = propOr('f6 db black-70', 'simpleListItemSpanTitle', props.themeStyles);
+  var simpleListItemSpanDescription = propOr('f6 db black-70', 'simpleListItemSpanDescription', props.themeStyles);
+
+  return (
+    React.createElement( 'li', { className: ("" + simpleListItemLi) },
+      React.createElement( 'div', { className: ("" + simpleListItemDiv) },
+        React.createElement( 'span', { className: ("" + simpleListItemSpanTitle) }, props.title),
+        React.createElement( 'span', { className: ("" + simpleListItemSpanDescription) }, props.description)
+      ),
+      React.createElement( 'div', null,
+        props.link
+      )
+    )
+  )
+};
+
+SimpleListItem.propTypes = {
+  title: React.PropTypes.string,
+  description: React.PropTypes.string,
+  link: React.PropTypes.element
+};
+
 var List = function (props) {
   var listUl = propOr('list pl0 mt0 measure center', 'listUl', props.themeStyles);
   return (
@@ -58,7 +83,7 @@ var List = function (props) {
 };
 
 var Card = function (props) {
-  var cardArticle = propOr('mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10', 'cardArticle', props.themeStyles);
+  var cardArticle = propOr('mw5 center bg-white br3 pa2 mv3 ba b--black-10', 'cardArticle', props.themeStyles);
   var cardDiv = propOr('tc', 'cardDiv', props.themeStyles);
   var cardImg = propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles);
   var cardH1 = propOr('f3 mb2', 'cardH1', props.themeStyles);
@@ -109,13 +134,13 @@ TextField.propTypes = {
 };
 
 var Panel = function (props) {
-  var panelBorder = propOr$1('ba br2 b--dark-gray','panelBorder', props.themeStyles);
-  var panelHeader = propOr$1('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles);
-  var panelH2 = propOr$1('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles);
-  var panelChildrenSection = propOr$1('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles);
-  var panelFooter = propOr$1('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles);
-  var panelButtonDiv = propOr$1('fr dark-gray', 'panelButtonDiv', props.themeStyles);
-  var panelButton = propOr$1('ba grow pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
+  var panelBorder = propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles);
+  var panelHeader = propOr('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles);
+  var panelH2 = propOr('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles);
+  var panelChildrenSection = propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles);
+  var panelFooter = propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles);
+  var panelButtonDiv = propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles);
+  var panelButton = propOr('ba dim pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
   return (
     React.createElement( 'article', { className: ("" + panelBorder) },
       React.createElement( 'header', { className: ("" + panelHeader) },
@@ -282,4 +307,4 @@ var Themes = {
 
 // getDefaultTheme()  // retrieve the default theme
 
-export { Button, ImageListItem, List, Card, TextField, Panel, Themes };
+export { Button, ImageListItem, SimpleListItem, List, Card, TextField, Panel, Themes };

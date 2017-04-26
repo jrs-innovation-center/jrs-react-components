@@ -8,7 +8,7 @@ var React__default = 'default' in React ? React['default'] : React;
 
 var Button = function (props) {
 
-  var button = propOr('f6 link dim ph3 pv2 mb2 dib white bg-black', 'button', props.themeStyles);
+  var button = ramda.propOr('ba dim pa1 bg-near-white dark-gray', 'button', props.themeStyles);
 
   return (
     React__default.createElement( 'button', { onClick: props.onClick, className: ("" + button) },
@@ -26,11 +26,11 @@ var ImageListItem = function (ref) {
   var link = ref.link;
   var themeStyles = ref.themeStyles;
 
-  var imageListItemLi = propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
-  var imageListItemImg = propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles);
-  var imageListItemDiv = propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles);
-  var imageListItemSpanTitle = propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles);
-  var imageListItemSpanDescription = propOr('f6 db black-70', 'imageListItemSpanDescription', themeStyles);
+  var imageListItemLi = ramda.propOr('flex items-center lh-copy pa2 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
+  var imageListItemImg = ramda.propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles);
+  var imageListItemDiv = ramda.propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles);
+  var imageListItemSpanTitle = ramda.propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles);
+  var imageListItemSpanDescription = ramda.propOr('f6 db black-70', 'imageListItemSpanDescription', themeStyles);
 
   return (
     React__default.createElement( 'li', { className: ("" + imageListItemLi) },
@@ -53,8 +53,33 @@ ImageListItem.propTypes = {
   link: React__default.PropTypes.element
 };
 
+var SimpleListItem = function (props) {
+  var simpleListItemLi = ramda.propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'simpleListItemLi', props.themeStyles);
+  var simpleListItemDiv = ramda.propOr('pl3 flex-auto', 'simpleListItemDiv', props.themeStyles);
+  var simpleListItemSpanTitle = ramda.propOr('f6 db black-70', 'simpleListItemSpanTitle', props.themeStyles);
+  var simpleListItemSpanDescription = ramda.propOr('f6 db black-70', 'simpleListItemSpanDescription', props.themeStyles);
+
+  return (
+    React__default.createElement( 'li', { className: ("" + simpleListItemLi) },
+      React__default.createElement( 'div', { className: ("" + simpleListItemDiv) },
+        React__default.createElement( 'span', { className: ("" + simpleListItemSpanTitle) }, props.title),
+        React__default.createElement( 'span', { className: ("" + simpleListItemSpanDescription) }, props.description)
+      ),
+      React__default.createElement( 'div', null,
+        props.link
+      )
+    )
+  )
+};
+
+SimpleListItem.propTypes = {
+  title: React__default.PropTypes.string,
+  description: React__default.PropTypes.string,
+  link: React__default.PropTypes.element
+};
+
 var List = function (props) {
-  var listUl = propOr('list pl0 mt0 measure center', 'listUl', props.themeStyles);
+  var listUl = ramda.propOr('list pl0 mt0 measure center', 'listUl', props.themeStyles);
   return (
     React__default.createElement( 'ul', { className: ("" + listUl) },
       props.children
@@ -63,11 +88,11 @@ var List = function (props) {
 };
 
 var Card = function (props) {
-  var cardArticle = propOr('mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10', 'cardArticle', props.themeStyles);
-  var cardDiv = propOr('tc', 'cardDiv', props.themeStyles);
-  var cardImg = propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles);
-  var cardH1 = propOr('f3 mb2', 'cardH1', props.themeStyles);
-  var cardH2 = propOr('f5 fw4 gray mt0', 'cardH2', props.themeStyles);
+  var cardArticle = ramda.propOr('mw5 center bg-white br3 pa2 mv3 ba b--black-10', 'cardArticle', props.themeStyles);
+  var cardDiv = ramda.propOr('tc', 'cardDiv', props.themeStyles);
+  var cardImg = ramda.propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles);
+  var cardH1 = ramda.propOr('f3 mb2', 'cardH1', props.themeStyles);
+  var cardH2 = ramda.propOr('f5 fw4 gray mt0', 'cardH2', props.themeStyles);
 
   return (
     React__default.createElement( 'article', { className: ("" + cardArticle) },
@@ -120,7 +145,7 @@ var Panel = function (props) {
   var panelChildrenSection = ramda.propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles);
   var panelFooter = ramda.propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles);
   var panelButtonDiv = ramda.propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles);
-  var panelButton = ramda.propOr('ba grow pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
+  var panelButton = ramda.propOr('ba dim pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
   return (
     React__default.createElement( 'article', { className: ("" + panelBorder) },
       React__default.createElement( 'header', { className: ("" + panelHeader) },
@@ -289,6 +314,7 @@ var Themes = {
 
 exports.Button = Button;
 exports.ImageListItem = ImageListItem;
+exports.SimpleListItem = SimpleListItem;
 exports.List = List;
 exports.Card = Card;
 exports.TextField = TextField;
