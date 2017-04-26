@@ -10,10 +10,15 @@ import {compose,
   concat
 } from 'ramda'
 
-import defaultRedTheme from './default-theme'
 
-let defaultTheme = 'default-red-theme'
-let themes = [defaultRedTheme]
+// Use a default theme in case dev isnt using a theme from jrs-react-components-themes.
+import fallBackDefaultTheme from './default-theme'
+
+// set the default theme
+let defaultTheme = 'near black and yellow'
+
+// add a single default theme to the themes array
+let themes = [fallBackDefaultTheme]
 
 function setDefaultTheme(themeName) {
   defaultTheme = themeName
@@ -35,11 +40,6 @@ function replaceThemeStyles(themeName, themeStyles) {
  foundTheme.themeStyles = merge(foundTheme.themeStyles, themeStyles)
 
   return updateTheme(themeName, foundTheme)
- // return compose(
- //   append(foundTheme),
- //   reject(theme => theme.name === themeName)
- //  )(themes)
-
 }
 
 

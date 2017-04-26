@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 const Card = props => {
+  const cardArticle = propOr('mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10', 'cardArticle', props.themeStyles)
+  const cardDiv = propOr('tc', 'cardDiv', props.themeStyles)
+  const cardImg = propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles)
+  const cardH1 = propOr('f3 mb2', 'cardH1', props.themeStyles)
+  const cardH2 = propOr('f5 fw4 gray mt0', 'cardH2', props.themeStyles)
+
   return (
-    <article className='mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10'>
-      <div className='tc'>
+    <article className={`${cardArticle}`}>
+      <div className={`${cardDiv}`}>
         <img
-          src='http://tachyons.io/img/avatar_1.jpg'
-          className='br-100 h4 w4 dib ba b--black-05 pa2'
-          title='Photo of a kitty staring at you'
+          src={props.image}
+          className={`${cardImg}`}
+          title={props.title}
         />
-        <h1 className='f3 mb2'>{props.title}</h1>
-        <h2 className='f5 fw4 gray mt0'>{props.description}</h2>
+        <h1 className={`${cardH1}`}>{props.title}</h1>
+        <h2 className={`${cardH2}`}>{props.description}</h2>
       </div>
       {props.children}
     </article>
   )
+}
+
+Card.propTypes = {
+  image: React.PropTypes.string,
+  title: React.PropTypes.string,
+  description: React.PropTypes.string
 }
 
 export default Card

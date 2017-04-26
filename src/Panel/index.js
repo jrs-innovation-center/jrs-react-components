@@ -1,29 +1,28 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {propOr} from 'ramda'
-//import Themes from '../Themes/index'
-
-//const theme = Themes.getDefaultTheme()
-
 
 const Panel = props => {
   const panelBorder = propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles)
-  const bgColor = propOr('bg-near-white','panelBackgroundColor', props.themeStyles)
-  const textColor = propOr('dark-gray', 'panelTextColor',  props.themeStyles)
-
+  const panelHeader = propOr('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles)
+  const panelH2 = propOr('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles)
+  const panelChildrenSection = propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles)
+  const panelFooter = propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles)
+  const panelButtonDiv = propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles)
+  const panelButton = propOr('ba grow pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles)
   return (
     <article className={`${panelBorder}`}>
-      <header className={`pa2 ${bgColor} ${textColor}`}>
-        <h2 className='fw1 f3 mt1 mb0'>{props.title}</h2>
+      <header className={`${panelHeader}`}>
+        <h2 className={`${panelH2}`}>{props.title}</h2>
       </header>
-      <section className={`pa2 ${bgColor}`}>
+      <section className={`${panelChildrenSection}`}>
         {props.children}
       </section>
-      <footer className={`pa2 ${bgColor} gray`}>
+      <footer className={`${panelFooter}`}>
         <div className='cf'>
-          <div className={`fr ${textColor}`}>
+          <div className={`${panelButtonDiv}`}>
             {props.onPrevious && (
             <button
-              className={`ba grow ${bgColor} ${textColor} pa2`}
+              className={`${panelButton}`}
               onClick={props.onPrevious}
                   >
                     Previous
@@ -32,7 +31,7 @@ const Panel = props => {
             |
             {props.onNext && (
             <button
-              className={`ba grow ${bgColor} ${textColor} pa2`}
+              className={`${panelButton}`}
               onClick={props.onNext}
                   >
                     Next
@@ -41,7 +40,7 @@ const Panel = props => {
             |
             {props.onFinish && (
             <button
-              className={`ba grow ${bgColor} ${textColor} pa2`}
+              className={`${panelButton}`}
               onClick={props.onFinish}
                   >
                     Finish

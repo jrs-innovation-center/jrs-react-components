@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react'
 
 const Button = props => {
-  const defaultClass = 'f6 link dim ph3 pv2 mb2 dib white bg-black'
+
+  const button = propOr('f6 link dim ph3 pv2 mb2 dib white bg-black', 'button', props.themeStyles)
+
   return (
-    <button onClick={props.onClick} className={props.className || defaultClass}>
+    <button onClick={props.onClick} className={`${button}`}>
       {props.children}
     </button>
   )
 }
 
-Button.propTypes = { onClick: PropTypes.func, className: PropTypes.string }
+Button.propTypes = { onClick: PropTypes.func }
 
 export default Button

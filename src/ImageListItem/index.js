@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-const ImageListItem = ({ image, title, description, link }) => {
+const ImageListItem = ({ image, title, description, link, themeStyles }) => {
+  const imageListItemLi = propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'imageListItemLi', themeStyles)
+  const imageListItemImg = propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles)
+  const imageListItemDiv = propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles)
+  const imageListItemSpanTitle = propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles)
+  const imageListItemSpanDescription = propOr('f6 db black-70', 'imageListItemSpanDescription', themeStyles)
+
   return (
-    <li className='flex items-center lh-copy pa3 ph0-l bb b--black-10'>
-      <img className='w2 h2 w3-ns h3-ns br-100' src={image} />
-      <div className='pl3 flex-auto'>
-        <span className='f6 db black-70'>{title}</span>
-        <span className='f6 db black-70'>{description}</span>
+    <li className={`${imageListItemLi}`}>
+      <img className={`${imageListItemImg}`} src={image} />
+      <div className={`${imageListItemDiv}`}>
+        <span className={`${imageListItemSpanTitle}`}>{title}</span>
+        <span className={`${imageListItemSpanDescription}`}>{description}</span>
       </div>
       <div>
         {link}

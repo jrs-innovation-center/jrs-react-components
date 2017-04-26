@@ -7,28 +7,37 @@
 var React__default = 'default' in React ? React['default'] : React;
 
 var Button = function (props) {
-  var defaultClass = 'f6 link dim ph3 pv2 mb2 dib white bg-black';
+
+  var button = propOr('f6 link dim ph3 pv2 mb2 dib white bg-black', 'button', props.themeStyles);
+
   return (
-    React__default.createElement( 'button', { onClick: props.onClick, className: props.className || defaultClass },
+    React__default.createElement( 'button', { onClick: props.onClick, className: ("" + button) },
       props.children
     )
   )
 };
 
-Button.propTypes = { onClick: React.PropTypes.func, className: React.PropTypes.string };
+Button.propTypes = { onClick: React.PropTypes.func };
 
 var ImageListItem = function (ref) {
   var image = ref.image;
   var title = ref.title;
   var description = ref.description;
   var link = ref.link;
+  var themeStyles = ref.themeStyles;
+
+  var imageListItemLi = propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
+  var imageListItemImg = propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles);
+  var imageListItemDiv = propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles);
+  var imageListItemSpanTitle = propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles);
+  var imageListItemSpanDescription = propOr('f6 db black-70', 'imageListItemSpanDescription', themeStyles);
 
   return (
-    React__default.createElement( 'li', { className: 'flex items-center lh-copy pa3 ph0-l bb b--black-10' },
-      React__default.createElement( 'img', { className: 'w2 h2 w3-ns h3-ns br-100', src: image }),
-      React__default.createElement( 'div', { className: 'pl3 flex-auto' },
-        React__default.createElement( 'span', { className: 'f6 db black-70' }, title),
-        React__default.createElement( 'span', { className: 'f6 db black-70' }, description)
+    React__default.createElement( 'li', { className: ("" + imageListItemLi) },
+      React__default.createElement( 'img', { className: ("" + imageListItemImg), src: image }),
+      React__default.createElement( 'div', { className: ("" + imageListItemDiv) },
+        React__default.createElement( 'span', { className: ("" + imageListItemSpanTitle) }, title),
+        React__default.createElement( 'span', { className: ("" + imageListItemSpanDescription) }, description)
       ),
       React__default.createElement( 'div', null,
         link
@@ -45,25 +54,38 @@ ImageListItem.propTypes = {
 };
 
 var List = function (props) {
+  var listUl = propOr('list pl0 mt0 measure center', 'listUl', props.themeStyles);
   return (
-    React__default.createElement( 'ul', { className: 'list pl0 mt0 measure center' },
+    React__default.createElement( 'ul', { className: ("" + listUl) },
       props.children
     )
   )
 };
 
 var Card = function (props) {
+  var cardArticle = propOr('mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10', 'cardArticle', props.themeStyles);
+  var cardDiv = propOr('tc', 'cardDiv', props.themeStyles);
+  var cardImg = propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles);
+  var cardH1 = propOr('f3 mb2', 'cardH1', props.themeStyles);
+  var cardH2 = propOr('f5 fw4 gray mt0', 'cardH2', props.themeStyles);
+
   return (
-    React__default.createElement( 'article', { className: 'mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10' },
-      React__default.createElement( 'div', { className: 'tc' },
+    React__default.createElement( 'article', { className: ("" + cardArticle) },
+      React__default.createElement( 'div', { className: ("" + cardDiv) },
         React__default.createElement( 'img', {
-          src: 'http://tachyons.io/img/avatar_1.jpg', className: 'br-100 h4 w4 dib ba b--black-05 pa2', title: 'Photo of a kitty staring at you' }),
-        React__default.createElement( 'h1', { className: 'f3 mb2' }, props.title),
-        React__default.createElement( 'h2', { className: 'f5 fw4 gray mt0' }, props.description)
+          src: props.image, className: ("" + cardImg), title: props.title }),
+        React__default.createElement( 'h1', { className: ("" + cardH1) }, props.title),
+        React__default.createElement( 'h2', { className: ("" + cardH2) }, props.description)
       ),
       props.children
     )
   )
+};
+
+Card.propTypes = {
+  image: React__default.PropTypes.string,
+  title: React__default.PropTypes.string,
+  description: React__default.PropTypes.string
 };
 
 var TextField = function (props) {
@@ -91,36 +113,34 @@ TextField.propTypes = {
   width: React__default.PropTypes.string
 };
 
-//import Themes from '../Themes/index'
-
-//const theme = Themes.getDefaultTheme()
-
-
 var Panel = function (props) {
   var panelBorder = ramda.propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles);
-  var bgColor = ramda.propOr('bg-near-white','panelBackgroundColor', props.themeStyles);
-  var textColor = ramda.propOr('dark-gray', 'panelTextColor',  props.themeStyles);
-
+  var panelHeader = ramda.propOr('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles);
+  var panelH2 = ramda.propOr('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles);
+  var panelChildrenSection = ramda.propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles);
+  var panelFooter = ramda.propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles);
+  var panelButtonDiv = ramda.propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles);
+  var panelButton = ramda.propOr('ba grow pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
   return (
     React__default.createElement( 'article', { className: ("" + panelBorder) },
-      React__default.createElement( 'header', { className: ("pa2 " + bgColor + " " + textColor) },
-        React__default.createElement( 'h2', { className: 'fw1 f3 mt1 mb0' }, props.title)
+      React__default.createElement( 'header', { className: ("" + panelHeader) },
+        React__default.createElement( 'h2', { className: ("" + panelH2) }, props.title)
       ),
-      React__default.createElement( 'section', { className: ("pa2 " + bgColor) },
+      React__default.createElement( 'section', { className: ("" + panelChildrenSection) },
         props.children
       ),
-      React__default.createElement( 'footer', { className: ("pa2 " + bgColor + " gray") },
+      React__default.createElement( 'footer', { className: ("" + panelFooter) },
         React__default.createElement( 'div', { className: 'cf' },
-          React__default.createElement( 'div', { className: ("fr " + textColor) },
+          React__default.createElement( 'div', { className: ("" + panelButtonDiv) },
             props.onPrevious && (
             React__default.createElement( 'button', {
-              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onPrevious }, "Previous")
+              className: ("" + panelButton), onClick: props.onPrevious }, "Previous")
                 ), "| ", props.onNext && (
             React__default.createElement( 'button', {
-              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onNext }, "Next")
+              className: ("" + panelButton), onClick: props.onNext }, "Next")
                 ), "| ", props.onFinish && (
             React__default.createElement( 'button', {
-              className: ("ba grow " + bgColor + " " + textColor + " pa2"), onClick: props.onFinish }, "Finish")
+              className: ("" + panelButton), onClick: props.onFinish }, "Finish")
                 )
           )
         )
@@ -136,16 +156,48 @@ Panel.propTypes = {
   title: React__default.PropTypes.string
 };
 
+var backgroundColor = 'bg-near-black';
+var textColor = 'yellow';
+var paddingAll = 'pa2';
+var borderRound = 'br2';
+var h2 = 'fw1 f3 mt1 mb0';
+var parentBorderColor = 'b--black-90';
+var childBorderColor = 'b--black-10';
+
 var defaultTheme$1 = {
-  themeName: 'default-red-theme',
+  themeName: 'near black and yellow',
   themeStyles: {
-    panelBorder: 'ba bg-black-20',
-    panelBackgroundColor: 'bg-dark-red',
-    panelTextColor: 'light-gray'
+    panelBorder: ("ba " + borderRound + " " + backgroundColor + " " + parentBorderColor),
+    panelHeader: (paddingAll + " " + backgroundColor + " " + textColor),
+    panelH2: ("" + h2),
+    panelChildrenSection: (paddingAll + " " + backgroundColor),
+    panelFooter:  (paddingAll + " " + backgroundColor + " " + textColor),
+    panelButtonDiv: "fr",
+    panelButton: ("ba dim " + paddingAll + " " + backgroundColor + " " + textColor),
+    listUl: "list pl0 mt0 measure center",
+    imageListItemLi: ("flex items-center lh-copy " + paddingAll + " ph0-l bb " + childBorderColor),
+    imageListItemImg: "w2 h2 w3-ns h3-ns br-100",
+    imageListItemDiv: "pl3 flex-auto",
+    imageListItemSpanTitle: ("f6 db " + textColor),
+    imageListItemSpanDescription: ("f6 db " + textColor),
+    simpleListItemLi: ("flex items-center lh-copy " + paddingAll + " ph0-l bb " + childBorderColor),
+    simpleListItemDiv: "pl3 flex-auto",
+    simpleListItemSpanTitle: ("f6 db " + textColor),
+    simpleListItemSpanDescription: ("f6 db " + textColor),
+    cardArticle: ("mw5 center " + backgroundColor + " " + borderRound + " " + paddingAll + " pa4-ns mv3 ba " + childBorderColor),
+    cardDiv: "tc",
+    cardImg: ("br-100 h4 w4 dib ba " + childBorderColor + " " + paddingAll),
+    cardH1: "f3 mb2",
+    cardH2: ("f5 fw4 " + textColor + " mt0"),
+    button: ("f6 link dim ph3 pv2 mb2 dib " + textColor + " " + backgroundColor)
   }
 };
 
-var defaultTheme = 'default-red-theme';
+// Use a default theme in case dev isnt using a theme from jrs-react-components-themes.
+// set the default theme
+var defaultTheme = 'near black and yellow';
+
+// add a single default theme to the themes array
 var themes = [defaultTheme$1];
 
 function setDefaultTheme(themeName) {
@@ -168,11 +220,6 @@ function replaceThemeStyles(themeName, themeStyles) {
  foundTheme.themeStyles = ramda.merge(foundTheme.themeStyles, themeStyles);
 
   return updateTheme(themeName, foundTheme)
- // return compose(
- //   append(foundTheme),
- //   reject(theme => theme.name === themeName)
- //  )(themes)
-
 }
 
 
