@@ -5,6 +5,6 @@ import List from './List/index'
 import Card from './Card/index'
 import TextField from './TextField/index'
 import Panel from './Panel/index'
-import Themes from './Themes/index'
+import ThemeManager from './ThemeManager/index'
 
-export { Button, ImageListItem, SimpleListItem, List, Card, TextField, Panel, Themes }
+export { Button, ImageListItem, SimpleListItem, List, Card, TextField, Panel, ThemeManager }

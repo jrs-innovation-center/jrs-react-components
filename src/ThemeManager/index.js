@@ -7,37 +7,52 @@ import {compose,
   map,
   keys,
   append,
-  concat
+  concat, prop
 } from 'ramda'
 
 
-// Use a default theme in case dev isnt using a theme from jrs-react-components-themes.
-import fallBackDefaultTheme from './default-theme'
+// use setDefaultTheme() to set the value of defaultTheme to a string
+let defaultTheme = null
 
-// set the default theme
-let defaultTheme = 'near black and yellow'
-
-// add a single default theme to the themes array
-let themes = [fallBackDefaultTheme]
+// use addTheme() to add a theme to the themes array
+let themes = []
 
 function setDefaultTheme(themeName) {
-  defaultTheme = themeName
+  if (themes.length === 0) {
+    throw new Error('There are no themes in the ThemeManager. Use addTheme() to add a theme and set it as the default.')
+  } else {
+      defaultTheme = themeName
+  }
 }
 
 function addTheme(theme) {
-  themes = append(theme, themes)
+
+  if (prop('themeName', theme)) {
+    themes = append(theme, themes)
+    defaultTheme = prop('themeName', theme)
+  } else {
+    throw new Error("addTheme() failed due to missing 'themeName' property in theme object parameter.")
+  }
+
 }
 
 function updateTheme(themeName, theme) {
-  return compose(
-    append(theme),
-    reject(theme => theme.themeName === themeName)
-   )(themes)
+  if (themes.length === 0) {
+    throw new Error('There are no themes in the ThemeManager. Use addTheme() to add a theme and set it as the default.')
+  } else if (prop('themeName', theme) === undefined) {
+    throw new Error("updateTheme() failed due to missing 'themeName' property in theme object parameter.")
+  } else {
+    return compose(
+      append(theme),
+      reject(theme => theme.themeName === themeName)
+     )(themes)
+  }
 }
 
 function replaceThemeStyles(themeName, themeStyles) {
- const foundTheme =  find(theme => theme.themeName === themeName)(themes)
- foundTheme.themeStyles = merge(foundTheme.themeStyles, themeStyles)
+  const foundTheme =  find(theme => theme.themeName === themeName)(themes)
+
+  foundTheme.themeStyles = merge(foundTheme.themeStyles, themeStyles)
 
   return updateTheme(themeName, foundTheme)
 }
@@ -71,7 +86,7 @@ function getDefaultTheme () {
   return find (theme => theme.themeName === defaultTheme, themes)
 }
 
-const Themes = {
+const ThemeManager = {
   addTheme: addTheme,
   setDefaultTheme: setDefaultTheme,
   replaceThemeStyles: replaceThemeStyles,
@@ -79,7 +94,7 @@ const Themes = {
   getDefaultTheme: getDefaultTheme
 }
 
-export default Themes
+export default ThemeManager
 
 
 // Examples

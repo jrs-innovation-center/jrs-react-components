@@ -8,8 +8,8 @@ var React__default = 'default' in React ? React['default'] : React;
 
 var Button = function (props) {
 
-  var button = ramda.propOr('ba dim pa1 bg-near-white dark-gray', 'button', props.themeStyles);
-
+  //const button = propOr('ba dim pa1 bg-near-white dark-gray', 'button', props.themeStyles)
+  var button = ramda.propOr('f6 link dim br1 ba ph3 pv2 mb2 dib black', 'button', props.themeStyles);
   return (
     React__default.createElement( 'button', { onClick: props.onClick, className: ("" + button) },
       props.children
@@ -29,7 +29,7 @@ var ImageListItem = function (ref) {
   var imageListItemLi = ramda.propOr('flex items-center lh-copy pa2 ph0-l bb b--black-10', 'imageListItemLi', themeStyles);
   var imageListItemImg = ramda.propOr('w2 h2 w3-ns h3-ns br-100', 'imageListItemImg', themeStyles);
   var imageListItemDiv = ramda.propOr('pl3 flex-auto', 'imageListItemDiv', themeStyles);
-  var imageListItemSpanTitle = ramda.propOr('f6 db black-70', 'imageListItemSpanTitle', themeStyles);
+  var imageListItemSpanTitle = ramda.propOr('f4 db black-70', 'imageListItemSpanTitle', themeStyles);
   var imageListItemSpanDescription = ramda.propOr('f6 db black-70', 'imageListItemSpanDescription', themeStyles);
 
   return (
@@ -56,7 +56,7 @@ ImageListItem.propTypes = {
 var SimpleListItem = function (props) {
   var simpleListItemLi = ramda.propOr('flex items-center lh-copy pa3 ph0-l bb b--black-10', 'simpleListItemLi', props.themeStyles);
   var simpleListItemDiv = ramda.propOr('pl3 flex-auto', 'simpleListItemDiv', props.themeStyles);
-  var simpleListItemSpanTitle = ramda.propOr('f6 db black-70', 'simpleListItemSpanTitle', props.themeStyles);
+  var simpleListItemSpanTitle = ramda.propOr('f4 db black-70', 'simpleListItemSpanTitle', props.themeStyles);
   var simpleListItemSpanDescription = ramda.propOr('f6 db black-70', 'simpleListItemSpanDescription', props.themeStyles);
 
   return (
@@ -79,7 +79,7 @@ SimpleListItem.propTypes = {
 };
 
 var List = function (props) {
-  var listUl = ramda.propOr('list pl0 mt0 measure center', 'listUl', props.themeStyles);
+  var listUl = ramda.propOr('list pl0 mt0 measure', 'listUl', props.themeStyles);
   return (
     React__default.createElement( 'ul', { className: ("" + listUl) },
       props.children
@@ -88,7 +88,7 @@ var List = function (props) {
 };
 
 var Card = function (props) {
-  var cardArticle = ramda.propOr('mw5 center bg-white br3 pa2 mv3 ba b--black-10', 'cardArticle', props.themeStyles);
+  var cardArticle = ramda.propOr('mw5 bg-white br3 pa2 mv3 ba b--black-10', 'cardArticle', props.themeStyles);
   var cardDiv = ramda.propOr('tc', 'cardDiv', props.themeStyles);
   var cardImg = ramda.propOr('br-100 h4 w4 dib ba b--black-05 pa2', 'cardImg', props.themeStyles);
   var cardH1 = ramda.propOr('f3 mb2', 'cardH1', props.themeStyles);
@@ -98,7 +98,7 @@ var Card = function (props) {
     React__default.createElement( 'article', { className: ("" + cardArticle) },
       React__default.createElement( 'div', { className: ("" + cardDiv) },
         React__default.createElement( 'img', {
-          src: props.image, className: ("" + cardImg), title: props.title }),
+          src: props.image, className: ("" + cardImg), title: props.title, alt: props.title }),
         React__default.createElement( 'h1', { className: ("" + cardH1) }, props.title),
         React__default.createElement( 'h2', { className: ("" + cardH2) }, props.description)
       ),
@@ -181,68 +181,48 @@ Panel.propTypes = {
   title: React__default.PropTypes.string
 };
 
-var backgroundColor = 'bg-near-black';
-var textColor = 'yellow';
-var paddingAll = 'pa2';
-var borderRound = 'br2';
-var h2 = 'fw1 f3 mt1 mb0';
-var parentBorderColor = 'b--black-90';
-var childBorderColor = 'b--black-10';
+// use setDefaultTheme() to set the value of defaultTheme to a string
+var defaultTheme = null;
 
-var defaultTheme$1 = {
-  themeName: 'near black and yellow',
-  themeStyles: {
-    panelBorder: ("ba " + borderRound + " " + backgroundColor + " " + parentBorderColor),
-    panelHeader: (paddingAll + " " + backgroundColor + " " + textColor),
-    panelH2: ("" + h2),
-    panelChildrenSection: (paddingAll + " " + backgroundColor),
-    panelFooter:  (paddingAll + " " + backgroundColor + " " + textColor),
-    panelButtonDiv: "fr",
-    panelButton: ("ba dim " + paddingAll + " " + backgroundColor + " " + textColor),
-    listUl: "list pl0 mt0 measure center",
-    imageListItemLi: ("flex items-center lh-copy " + paddingAll + " ph0-l bb " + childBorderColor),
-    imageListItemImg: "w2 h2 w3-ns h3-ns br-100",
-    imageListItemDiv: "pl3 flex-auto",
-    imageListItemSpanTitle: ("f6 db " + textColor),
-    imageListItemSpanDescription: ("f6 db " + textColor),
-    simpleListItemLi: ("flex items-center lh-copy " + paddingAll + " ph0-l bb " + childBorderColor),
-    simpleListItemDiv: "pl3 flex-auto",
-    simpleListItemSpanTitle: ("f6 db " + textColor),
-    simpleListItemSpanDescription: ("f6 db " + textColor),
-    cardArticle: ("mw5 center " + backgroundColor + " " + borderRound + " " + paddingAll + " pa4-ns mv3 ba " + childBorderColor),
-    cardDiv: "tc",
-    cardImg: ("br-100 h4 w4 dib ba " + childBorderColor + " " + paddingAll),
-    cardH1: "f3 mb2",
-    cardH2: ("f5 fw4 " + textColor + " mt0"),
-    button: ("f6 link dim ph3 pv2 mb2 dib " + textColor + " " + backgroundColor)
-  }
-};
-
-// Use a default theme in case dev isnt using a theme from jrs-react-components-themes.
-// set the default theme
-var defaultTheme = 'near black and yellow';
-
-// add a single default theme to the themes array
-var themes = [defaultTheme$1];
+// use addTheme() to add a theme to the themes array
+var themes = [];
 
 function setDefaultTheme(themeName) {
-  defaultTheme = themeName;
+  if (themes.length === 0) {
+    throw new Error('There are no themes in the ThemeManager. Use addTheme() to add a theme and set it as the default.')
+  } else {
+      defaultTheme = themeName;
+  }
 }
 
 function addTheme(theme) {
-  themes = ramda.append(theme, themes);
+
+  if (ramda.prop('themeName', theme)) {
+    themes = ramda.append(theme, themes);
+    defaultTheme = ramda.prop('themeName', theme);
+  } else {
+    throw new Error("addTheme() failed due to missing 'themeName' property in theme object parameter.")
+  }
+
 }
 
 function updateTheme(themeName, theme) {
-  return ramda.compose(
-    ramda.append(theme),
-    ramda.reject(function (theme) { return theme.themeName === themeName; })
-   )(themes)
+  if (themes.length === 0) {
+    throw new Error('There are no themes in the ThemeManager. Use addTheme() to add a theme and set it as the default.')
+  } else if (ramda.prop('themeName', theme) === undefined) {
+    throw new Error("updateTheme() failed due to missing 'themeName' property in theme object parameter.")
+  } else {
+    return ramda.compose(
+      ramda.append(theme),
+      ramda.reject(function (theme) { return theme.themeName === themeName; })
+     )(themes)
+  }
 }
 
 function replaceThemeStyles(themeName, themeStyles) {
- var foundTheme =  ramda.find(function (theme) { return theme.themeName === themeName; })(themes);
- foundTheme.themeStyles = ramda.merge(foundTheme.themeStyles, themeStyles);
+  var foundTheme =  ramda.find(function (theme) { return theme.themeName === themeName; })(themes);
+
+  foundTheme.themeStyles = ramda.merge(foundTheme.themeStyles, themeStyles);
 
   return updateTheme(themeName, foundTheme)
 }
@@ -276,7 +256,7 @@ function getDefaultTheme () {
   return ramda.find (function (theme) { return theme.themeName === defaultTheme; }, themes)
 }
 
-var Themes = {
+var ThemeManager = {
   addTheme: addTheme,
   setDefaultTheme: setDefaultTheme,
   replaceThemeStyles: replaceThemeStyles,
@@ -319,7 +299,7 @@ exports.List = List;
 exports.Card = Card;
 exports.TextField = TextField;
 exports.Panel = Panel;
-exports.Themes = Themes;
+exports.ThemeManager = ThemeManager;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
