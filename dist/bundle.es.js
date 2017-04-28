@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { append, compose, concat, find, keys, map, merge, mergeWith, prop, propOr, reject, zipObj } from 'ramda';
+import { append, compose, concat, find, keys, map, merge, mergeWith, prop, propOr, reject, toLower, trim, zipObj } from 'ramda';
 
 var Button = function (props) {
 
@@ -135,12 +135,12 @@ TextField.propTypes = {
 
 var Panel = function (props) {
   var panelBorder = propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles);
-  var panelHeader = propOr('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles);
+  var panelHeader = propOr('pa2','panelHeader', props.themeStyles);
   var panelH2 = propOr('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles);
-  var panelChildrenSection = propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles);
-  var panelFooter = propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles);
-  var panelButtonDiv = propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles);
-  var panelButton = propOr('ba dim pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles);
+  var panelChildrenSection = propOr('pa2 ', 'panelChildrenSection', props.themeStyles);
+  var panelFooter = propOr('pa2', 'panelFooter', props.themeStyles);
+  var panelButtonDiv = propOr('fr', 'panelButtonDiv', props.themeStyles);
+  var panelButton = propOr('ba dim pa2 ', 'panelButton', props.themeStyles);
   return (
     React.createElement( 'article', { className: ("" + panelBorder) },
       React.createElement( 'header', { className: ("" + panelHeader) },
@@ -174,6 +174,48 @@ Panel.propTypes = {
   onNext: React.PropTypes.func.isRequired,
   onFinish: React.PropTypes.func,
   title: React.PropTypes.string
+};
+
+var Tile = function (props) {
+  // themeStyles
+  var tileDivParentWrapper = propOr('pa3 fl tc', 'tileDivParentWrapper',  props.themeStyles );
+  var tileDivH1 = propOr('pa1 fl v-mid', 'tileDivH1',  props.themeStyles);
+  var tileH1MainText = propOr('f3 f4-ns fw2 black-90', 'tileH1MainText',  props.themeStyles);
+  var tileH1SecondaryText = propOr('f5 fw1', 'tileH1SecondaryText',  props.themeStyles);
+  var tileDivChildrenWrapper = propOr('pa3 fl', 'tileDivChildrenWrapper',  props.themeStyles);
+  var tileDivH2 = propOr('fl w-100', 'tileDivH2',  props.themeStyles);
+  var tileH2 = propOr('f3 fw2 black-50 mt0 lh-copy', 'tileH1SecondaryText',  props.themeStyles);
+
+  // props then fallback to themeStyle then fallback to white
+  var backgroundColor = propOr(propOr('bg-white', 'tileBackgroundColor',  props.themeStyles ), 'backgroundColor', props);
+
+  //props
+  var width = propOr('w-50 w-25-ns', 'width', props);
+  var h1Width = props.children ? 'w-50' : 'w-100';
+  var h1MainText = propOr('N/A', 'h1MainText', props);
+  var h1SecondaryText = toLower(propOr('', 'h1SecondaryText', props));
+  var h2Text = propOr('N/A', 'h2Text', props);
+
+  var children = props.children ?
+    React.createElement( 'div', { className: (tileDivChildrenWrapper + " " + h1Width) },
+      props.children
+    ) :
+    "";
+
+  var h2 = h2Text === 'N/A' || trim(h2Text) === '' ? "" :
+    React.createElement( 'div', { className: (tileDivH2 + " ") },
+      React.createElement( 'h2', { className: ("" + tileH2) }, h2Text)
+    );
+
+  return (
+    React.createElement( 'div', { className: (tileDivParentWrapper + " " + backgroundColor + " " + width) },
+      React.createElement( 'div', { className: (tileDivH1 + " " + h1Width) },
+        React.createElement( 'h1', { className: ("" + tileH1MainText) }, h1MainText, " ", React.createElement( 'span', { className: ("" + tileH1SecondaryText) }, h1SecondaryText))
+      ),
+      children,
+      h2
+    )
+  )
 };
 
 // use setDefaultTheme() to set the value of defaultTheme to a string
@@ -287,4 +329,4 @@ var ThemeManager = {
 
 // getDefaultTheme()  // retrieve the default theme
 
-export { Button, ImageListItem, SimpleListItem, List, Card, TextField, Panel, ThemeManager };
+export { Button, ImageListItem, SimpleListItem, List, Card, TextField, Panel, Tile, ThemeManager };

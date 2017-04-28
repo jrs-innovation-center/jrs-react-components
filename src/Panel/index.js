@@ -3,12 +3,12 @@ import {propOr} from 'ramda'
 
 const Panel = props => {
   const panelBorder = propOr('ba br2 b--dark-gray','panelBorder', props.themeStyles)
-  const panelHeader = propOr('pa2 bg-near-white dark-gray','panelHeader', props.themeStyles)
+  const panelHeader = propOr('pa2','panelHeader', props.themeStyles)
   const panelH2 = propOr('fw1 f3 mt1 mb0', 'panelH2',  props.themeStyles)
-  const panelChildrenSection = propOr('pa2 bg-near-white', 'panelChildrenSection', props.themeStyles)
-  const panelFooter = propOr('pa2 bg-near-white dark-gray', 'panelFooter', props.themeStyles)
-  const panelButtonDiv = propOr('fr dark-gray', 'panelButtonDiv', props.themeStyles)
-  const panelButton = propOr('ba dim pa2 bg-near-white dark-gray', 'panelButton', props.themeStyles)
+  const panelChildrenSection = propOr('pa2 ', 'panelChildrenSection', props.themeStyles)
+  const panelFooter = propOr('pa2', 'panelFooter', props.themeStyles)
+  const panelButtonDiv = propOr('fr', 'panelButtonDiv', props.themeStyles)
+  const panelButton = propOr('ba dim pa2 ', 'panelButton', props.themeStyles)
   return (
     <article className={`${panelBorder}`}>
       <header className={`${panelHeader}`}>
