@@ -71,7 +71,7 @@ function appendThemeStyles(themeName, themeStyles) {
     foundTheme =  compose(
       mergeWith(concat, foundTheme.themeStyles),
       zipObj(keys(themeStyles)),
-      map(key => ' z ' + themeStyles[key]))
+      map(key => ' ' + themeStyles[key]))
       (keys(themeStyles))
 
     // 4) update the entire theme
