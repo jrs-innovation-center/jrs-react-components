@@ -107,10 +107,6 @@ const Example1 = (props) => {
 export default Example1
 ```
 
-## Themes
-
-
-
 ## Requirements
 
 * React
