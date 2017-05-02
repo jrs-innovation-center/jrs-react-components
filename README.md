@@ -265,7 +265,7 @@ const dark = {
     ... remaining themeStyles keys omitted for brevity ...
 ```
 
-A theme object contains a `themeName` and a `themeStyles` object.  The former is used to identify the theme. `themeStyles` contains a series of key and value pairs.  Each key is used within a particular JRS react component.  For example, the `listUl` key contains the tachyons css style classes for the JRS React Components' `[list](./src/list)`'s `<ul>` tag.  
+A theme object contains a `themeName` and a `themeStyles` object.  The former is used to identify the theme. `themeStyles` contains a series of key and value pairs.  Each key is used within a particular JRS react component.  For example, the `listUl` key contains the tachyons css style classes for the JRS React Components' [list](./src/list)'s `<ul>` tag.  
 
 Let's say we wanted to change the list's `<ul>` css classes. We want a more rounded list border so we will change the border radius from a scale of 2 to 3. We also want a darker border, so we will change the border color from 10 percent black to 80 percent. We'll need to replace the `listUl` key value.  We'll keep any classes that we don't want to change and swap out the `br2` with `br3` and `b--black-10` with `b--black-80`.  
 
