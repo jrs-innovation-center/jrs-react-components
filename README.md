@@ -165,7 +165,7 @@ Need to change the css style classes for a component?  Use the ThemeManager. JRS
 
 - Load a theme into the ThemeManager with `addTheme()`.
 - Replace tachyons classes.  Use `replaceThemeStyles()` when you wish to replace the tachyons css class values of specific keys within a theme's `themeStyles` object.
-- Append tachyons classes.  Use `appendThemeStyles()` when you want to append new class values to one or several keys within a theme's `themeStyles` object.  
+- Append tachyons classes.  Use `appendThemeStyles()` when you want to append new class values to one or several keys within a theme's `themeStyles` object.
 
 ### `addTheme()`
 
@@ -186,9 +186,45 @@ ThemeManager.addTheme(dark)
 ThemeManager.addTheme(light)
 ```
 
+### Getting and setting the default theme
+
+`ThemeManager` can manage more than one theme at a time. The last theme added is automatically set as the default theme. To retrieve the default theme, use `getDefaultTheme()`:
+
+```
+import React from 'react'
+import { ThemeManager } from 'jrs-react-components'
+
+import {dark, icy} from 'jrs-react-components-themes'
+
+ThemeManager.addTheme(dark)
+ThemeManager.addTheme(icy)
+
+let defaultTheme = ThemeManager.getDefaultTheme()
+console.log('default theme', defaultTheme.themeName) // default theme icy
+```
+
+If you are managing more than one theme, you may want to change the default theme.  Assuming you have loaded the theme into the ThemeManager with `addTheme()`, use `setDefaultTheme()` to set the default theme, followed by `getDefaultTheme()` to pull the default theme out of the `ThemeManager`.
+
+```
+import React from 'react'
+import { ThemeManager } from 'jrs-react-components'
+
+import {dark, icy} from 'jrs-react-components-themes'
+
+ThemeManager.addTheme(dark)
+ThemeManager.addTheme(icy)
+
+let defaultTheme = ThemeManager.getDefaultTheme()
+console.log('default theme', defaultTheme.themeName) // default theme icy
+
+ThemeManager.setDefaultTheme('dark')
+defaultTheme = ThemeManager.getDefaultTheme()
+console.log('default theme', defaultTheme.themeName) // default theme dark
+```
+
 ### Modifying theme CSS
 
-Once you've added a theme into `ThemeManager` via   `addTheme()`, you can modify one or several styles within a theme using either `replaceThemeStyles()` or `appendThemeStyles()`.  
+Once you've added a theme into `ThemeManager` via `addTheme()`, you can modify one or several styles within a theme using either `replaceThemeStyles()` or `appendThemeStyles()`.  
 
 Use `replaceThemeStyles()` when you wish to replace the tachyons css class values of specific keys within a theme's `themeStyles` object. Use `appendThemeStyles()` when you want to append new class values to one or several keys within a theme's `themeStyles` object.
 
@@ -210,7 +246,6 @@ import {
 import {dark} from 'jrs-react-components-themes'
 
 ThemeManager.addTheme(dark)
-
 ```
 
 Here's a partial look at the structure of the `dark` theme object:
@@ -232,30 +267,17 @@ const dark = {
 
 A theme object contains a `themeName` and a `themeStyles` object.  The former is used to identify the theme. `themeStyles` contains a series of key and value pairs.  Each key is used within a particular JRS react component.  For example, the `listUl` key contains the tachyons css style classes for the JRS React Components' `[list](./src/list)`'s `<ul>` tag.  
 
-Let's say we wanted to change the list's `<ul>` css classes. We want a more rounded list border so we will change the border radius from a scale of 2 to 3. We also want a darker border, so we will change the border color from 10 percent black to 80 percent. We need to swap out the `listUl` key value.  We'll keep any classes that we don't want to change and swap out the `br2` with `br3` and `b--black-10` with `b--black-80`.  
+Let's say we wanted to change the list's `<ul>` css classes. We want a more rounded list border so we will change the border radius from a scale of 2 to 3. We also want a darker border, so we will change the border color from 10 percent black to 80 percent. We'll need to replace the `listUl` key value.  We'll keep any classes that we don't want to change and swap out the `br2` with `br3` and `b--black-10` with `b--black-80`.  
 
-We will call `replaceThemeStyles` and provide the name of the theme and an object containg a list of key value pairs of all the themeStyles we with to replace.  Since we are only changing one value, our object only contains a single themeStyle key value pair
+We will call `replaceThemeStyles()` and provide the name of the theme and an object containing a list of key value pairs of all the themeStyles we wish to replace.  Since we are only changing one value, our object only contains a single themeStyle key value pair:
 
 ```
-import React from 'react'
-import {
-  List,
-  ImageListItem,
-  Button,
-  ThemeManager
-} from 'jrs-react-components'
-
-import {dark} from 'jrs-react-components-themes'
-
-ThemeManager.addTheme(dark)
-
 ThemeManager.replaceThemeStyles('dark', {
   listUl: 'list pl0 mt0 measure ba br3 b--black-80'
 })
-
 ```
 
-To replace multiple styles, simply add more key value pairs. Below we are changing the font size and color of the title on a list item component.
+To replace multiple styles, simply add more key value pairs. Below we are changing the font size and color of the title on an `ImagelistItem` component.
 
 ```
 ThemeManager.replaceThemeStyles('dark', {
@@ -264,7 +286,7 @@ ThemeManager.replaceThemeStyles('dark', {
 })
 ```
 
-Once you have modified your theme styles, pass the theme's `themeStyles` object as props to the components.  Here's the entire sample:
+Once you have modified your theme styles, grab the theme back out of the theme manager with `getDefaultTheme()` and pass the theme's `themeStyles` object as props to the components.  Here's the entire sample:
 
 ```
 import React from 'react'
@@ -329,7 +351,7 @@ And here's the style after appending.
 f4 db washed-green fw1 f1
 ```
 
-> Tip: If you have trouble overriding a style with `appendThemeStyles`, you can always fall back to using  `replaceThemeStyles`, as a work around.
+> Tip: If you have trouble overriding a style with `appendThemeStyles`, use  `replaceThemeStyles`, as a work around.
 
 
 ## License
