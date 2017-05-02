@@ -11,6 +11,10 @@ readable documentation to learn about react components.
 npm install jrs-react-components --save
 ```
 
+## Showcase
+
+Our [showcase](https://jrscomponentshowcase.now.sh/) displays the various available themes applied to various JRS React Components.
+
 ## Code Example
 
 ```
