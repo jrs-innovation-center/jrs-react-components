@@ -1,5 +1,6 @@
 import React from 'react'
-import {propOr} from 'ramda'
+import R from 'ramda'
+const { propOr } = R
 
 const List = props => {
   const listUl = propOr('list pl0 mt0 measure', 'listUl', props.themeStyles)
