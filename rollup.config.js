@@ -3,6 +3,7 @@ import jsx from 'rollup-plugin-jsx'
 
 export default {
   entry: 'src/index.js',
+  external: ['prop-types', 'ramda', 'react'],
   plugins: [buble(), jsx({ factory: 'React.createElement' })],
   targets: [
     { dest: 'dist/bundle.cjs.js', format: 'cjs' },
